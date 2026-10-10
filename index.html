@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXPLAY — Demo Gaming</title>
+<style>
+:root{--bg:#100b1c;--panel:#211435;--purple:#7c3aed;--lav:#c4b5fd;--muted:#b8a9d2;--line:#35234e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#26143d 0,#100b1c 52%);color:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{max-width:1050px;margin:auto;padding:20px;display:flex;align-items:center;gap:12px}.logo{background:var(--purple);border-radius:14px;padding:10px;font-size:24px}.brand{font-weight:850;font-size:22px;letter-spacing:1px}.tag{font-size:11px;color:var(--lav);letter-spacing:1.5px}.spacer{flex:1}button,select{font:inherit;border:0;border-radius:11px;padding:11px 14px;cursor:pointer}button{background:var(--purple);color:white;font-weight:700}button.secondary{background:#302043;border:1px solid #51356f}select{background:var(--panel);color:white;border:1px solid var(--line)}
+main{max-width:1050px;margin:auto;padding:8px 20px 40px}.hero{padding:28px 0 22px}.eyebrow{color:var(--lav);font-size:13px}.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:10px 0}.hero p{color:#d1c5e7;max-width:600px}.stats,.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.panel{background:linear-gradient(145deg,#28183e,#1a1028);border:1px solid var(--line);border-radius:18px;padding:20px}.label{color:var(--lav);font-size:13px}.big{font-size:32px;font-weight:800;margin:4px 0}.muted{color:var(--muted);font-size:13px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:30px 0 14px}.section-head h2{margin:0;font-size:22px}.games{grid-template-columns:repeat(3,minmax(0,1fr))}.game-icon{font-size:32px}.game h3{margin:8px 0 4px}.game p{font-size:13px;color:var(--muted);min-height:40px}.game button{width:100%;margin-top:10px}.game{display:flex;flex-direction:column}.game button{margin-top:auto}.notice{margin-top:24px;padding:14px;border:1px solid var(--line);border-radius:12px;color:#cbbce0;font-size:12px}footer{text-align:center;color:#8f7ca8;padding:24px;font-size:12px}
+@media(max-width:650px){header{padding:15px}.brand{font-size:19px}main{padding:0 15px 28px}.hero{padding-top:20px}.panel{padding:16px}.games{grid-template-columns:1fr}.game{min-height:0}.game p{min-height:0}.stats{gap:10px}.big{font-size:28px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">🎮</div>
+  <div><div class="brand">NEXPLAY</div><div class="tag">PLAY · COLLECT · COMPETE</div></div>
+  <div class="spacer"></div>
+  <select id="language" aria-label="Language"><option value="bn">বাংলা</option><option value="en">English</option></select>
+</header>
+<main>
+  <section class="hero">
+    <div class="eyebrow" id="welcome">স্বাগতম, খেলোয়াড়!</div>
+    <h1 id="headline">তোমার পরবর্তী খেলা শুরু করো</h1>
+    <p id="subhead">মজা করো, ভার্চুয়াল পয়েন্ট অর্জন করো, আর লিডারবোর্ডে এগিয়ে যাও।</p>
+  </section>
+  <section class="stats">
+    <div class="panel"><div class="label" id="points-label">ভার্চুয়াল পয়েন্ট</div><div class="big" id="points">1,250</div><div class="muted" id="points-note">শুধুই ডেমো পয়েন্ট</div></div>
+    <div class="panel"><div class="label" id="rank-label">তোমার র‍্যাঙ্ক</div><div class="big">#08</div><div class="muted" id="rank-note">নমুনা র‍্যাঙ্ক</div></div>
+  </section>
+  <div class="section-head"><h2 id="games-title">🎯 গেম বেছে নাও</h2><span class="muted" id="game-count">৩টি গেম</span></div>
+  <section class="games">
+    <article class="panel game"><div class="game-icon">🎡</div><h3 id="spin-title">লাকি স্পিন</h3><p id="spin-desc">স্পিন করে ভার্চুয়াল পয়েন্ট জিতো।</p><button onclick="playSpin()" id="spin-btn">স্পিন করো · ১০ পয়েন্ট</button></article>
+    <article class="panel game"><div class="game-icon">🧠</div><h3 id="quiz-title">দ্রুত কুইজ</h3><p id="quiz-desc">একটি সাধারণ জ্ঞানের প্রশ্নের উত্তর দাও।</p><button onclick="playQuiz()" id="quiz-btn">কুইজ খেলো</button></article>
+    <article class="panel game"><div class="game-icon">🏆</div><h3 id="leader-title">লিডারবোর্ড</h3><p id="leader-desc">নমুনা খেলোয়াড়দের স্কোর দেখো।</p><button class="secondary" onclick="showLeaderboard()" id="leader-btn">র‍্যাঙ্ক দেখো</button></article>
+  </section>
+  <div class="notice" id="notice">ডেমো সংস্করণ: পয়েন্টের কোনো আর্থিক মূল্য নেই। কেনা, বিক্রি, বাজি বা টাকা উত্তোলন করা যায় না।</div>
+</main>
+<footer>NEXPLAY DEMO · No real-money wagering or cash withdrawals</footer>
+<script>
+let points=1250;
+const copy={
+bn:{welcome:"স্বাগতম, খেলোয়াড়!",headline:"তোমার পরবর্তী খেলা শুরু করো",subhead:"মজা করো, ভার্চুয়াল পয়েন্ট অর্জন করো, আর লিডারবোর্ডে এগিয়ে যাও।",pl:"ভার্চুয়াল পয়েন্ট",pn:"শুধুই ডেমো পয়েন্ট",rl:"তোমার র‍্যাঙ্ক",rn:"নমুনা র‍্যাঙ্ক",gt:"🎯 গেম বেছে নাও",gc:"৩টি গেম",st:"লাকি স্পিন",sd:"স্পিন করে ভার্চুয়াল পয়েন্ট জিতো।",sb:"স্পিন করো · ১০ পয়েন্ট",qt:"দ্রুত কুইজ",qd:"একটি সাধারণ জ্ঞানের প্রশ্নের উত্তর দাও।",qb:"কুইজ খেলো",lt:"লিডারবোর্ড",ld:"নমুনা খেলোয়াড়দের স্কোর দেখো।",lb:"র‍্যাঙ্ক দেখো",notice:"ডেমো সংস্করণ: পয়েন্টের কোনো আর্থিক মূল্য নেই। কেনা, বিক্রি, বাজি বা টাকা উত্তোলন করা যায় না.",need:"স্পিন করতে অন্তত ১০ পয়েন্ট লাগবে।",spin:"তুমি {n} পয়েন্ট পেয়েছ!",quiz:"বাংলাদেশের রাজধানী কোনটি?",correct:"সঠিক উত্তর! তুমি ২৫ পয়েন্ট পেয়েছ।",wrong:"সঠিক উত্তর ঢাকা। চেষ্টা চালিয়ে যাও!",leader:"নমুনা লিডারবোর্ড\\n১. Player Nova — ২,৪০০\\n২. PurpleFox — ১,৯৮০\\n৩. You — "+""},
+en:{welcome:"Welcome, player!",headline:"Start your next game",subhead:"Have fun, collect virtual points, and climb the leaderboard.",pl:"Virtual points",pn:"Demo points only",rl:"Your rank",rn:"Sample rank",gt:"🎯 Choose a game",gc:"3 games",st:"Lucky Spin",sd:"Spin to win virtual points.",sb:"Spin · 10 points",qt:"Quick Quiz",qd:"Answer a general knowledge question.",qb:"Play quiz",lt:"Leaderboard",ld:"See sample player scores.",lb:"View ranks",notice:"Demo version: points have no monetary value. No buying, selling, wagering, or cash withdrawals.",need:"You need at least 10 points to spin.",spin:"You won {n} points!",quiz:"What is the capital of Bangladesh?",correct:"Correct! You earned 25 points.",wrong:"The correct answer is Dhaka. Keep trying!",leader:"Sample leaderboard\\n1. Player Nova — 2,400\\n2. PurpleFox — 1,980\\n3. You — "}
+};
+function update(){document.getElementById("points").textContent=points.toLocaleString(document.getElementById("language").value==="bn"?"bn-BD":"en-US")}
+function setLang(lang){document.documentElement.lang=lang;let c=copy[lang];let ids={welcome:"welcome",headline:"headline",subhead:"subhead","points-label":"pl","points-note":"pn","rank-label":"rl","rank-note":"rn","games-title":"gt","game-count":"gc","spin-title":"st","spin-desc":"sd","spin-btn":"sb","quiz-title":"qt","quiz-desc":"qd","quiz-btn":"qb","leader-title":"lt","leader-desc":"ld","leader-btn":"lb",notice:"notice"};for(let id in ids)document.getElementById(id).textContent=c[ids[id]];update()}
+document.getElementById("language").addEventListener("change",e=>setLang(e.target.value));
+function playSpin(){if(points<10){alert(copy[language.value].need);return}points-=10;let n=[0,5,10,20,30,50][Math.floor(Math.random()*6)];points+=n;update();alert(copy[language.value].spin.replace("{n}",n))}
+function playQuiz(){let c=copy[language.value];if(confirm(c.quiz+"\n\n"+(language.value==="bn"?"OK চাপলে ঢাকা নির্বাচন করা হবে।":"Press OK to choose Dhaka."))){points+=25;update();alert(c.correct)}else alert(c.wrong)}
+function showLeaderboard(){let c=copy[language.value];alert(c.leader+points.toLocaleString(language.value==="bn"?"bn-BD":"en-US"))}
+const language=document.getElementById("language");
+</script>
+</body>
+</html>
